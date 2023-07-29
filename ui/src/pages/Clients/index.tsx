@@ -1,28 +1,25 @@
-import { memo, useContext, useEffect } from "react";
+import { memo } from "react";
+import { ToastContainer, } from 'react-toastify';
 import { Paper, Typography } from "@mui/material";
-import { StateContext } from "../../store/DataProvider";
 import Page from "../../components/Page";
 import ClientTable from "./ClientTable";
-import { getClients } from "../../services/api";
+import ClientFilterForm from "./ClientFilterForm";
+import ClientContext from "./ClientContext";
+import 'react-toastify/dist/ReactToastify.css';
 
 function Clients() {
-  const { state, dispatch } = useContext(StateContext);
-  const { clients } = state;
-
-  useEffect(() => {
-    getClients().then((clients) =>
-      dispatch({ type: "FETCH_ALL_CLIENTS", data: clients })
-    );
-  }, [dispatch]);
-
   return (
     <Page>
-      <Typography variant="h4" sx={{ textAlign: "start" }}>
-        Clients
-      </Typography>
-      <Paper sx={{ margin: "auto", marginTop: 3 }}>
-        <ClientTable clients={clients} />
-      </Paper>
+      <ToastContainer />
+      <ClientContext>
+        <Typography variant="h4" fontWeight={300} sx={{ textAlign: "start", marginBottom: 3, fontWeight: 500 }}>
+          Clients
+        </Typography>
+        <ClientFilterForm />
+        <Paper sx={{ margin: "auto", marginTop: 2 }}>
+          <ClientTable />
+        </Paper>
+      </ClientContext>
     </Page>
   );
 }

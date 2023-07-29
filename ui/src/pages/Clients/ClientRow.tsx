@@ -2,9 +2,10 @@ import { TableCell, TableRow } from "@mui/material";
 
 export interface IProps {
   client: IClient;
+  onClick: () => void;
 }
 
-export default function ClientListItem({ client }: IProps) {
+export default function ClientListItem({ client, onClick }: IProps) {
   const { id, firstName, lastName, email, phoneNumber } = client;
 
   return (
@@ -17,6 +18,7 @@ export default function ClientListItem({ client }: IProps) {
           backgroundColor: "#f5f5f5",
         },
       }}
+      onClick={onClick}
     >
       <TableCell component="th" scope="row">
         {firstName} {lastName}
